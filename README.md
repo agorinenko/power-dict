@@ -1,1 +1,1 @@
-# power-dict
+# Power dict project
