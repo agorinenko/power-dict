@@ -1,0 +1,10 @@
+https://packaging.python.org/tutorials/packaging-projects/
+1)Install
+python -m pip install --user --upgrade setuptools wheel
+pip install wheel
+pip install twine
+1)Build
+python setup.py sdist bdist_wheel
+2)Public
+python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+python -m twine upload dist/*

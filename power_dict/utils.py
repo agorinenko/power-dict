@@ -2,7 +2,7 @@ import datetime
 from try_parse.utils import ParseUtils
 from decimal import Decimal
 
-from powerdict.errors import InvalidParameterError
+from power_dict.errors import InvalidParameterError, NoneParameterError
 
 
 class Utils:
@@ -77,7 +77,7 @@ class Utils:
         if Utils.str_is_null_or_empty(value):
             value = default_value
 
-        status, result = utils.Utils ParseUtils.try_parse_int(value)
+        status, result = ParseUtils.try_parse_int(value)
         if status:
             return result
         else:
@@ -142,7 +142,7 @@ class Utils:
         if Utils.str_is_null_or_empty(value):
             Utils.raise_none_parameter_error(key, required_error)
 
-        status, result = Utils.try_parse_date(value)
+        status, result = ParseUtils.try_parse_date(value)
         if status:
             return result
         else:
