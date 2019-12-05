@@ -6,8 +6,20 @@ from power_dict.errors import InvalidParameterError, NoneParameterError
 
 
 class DictUtils:
+    __MAP = {
+        object: lambda x: DictUtils.get_dict_property,
+        str: lambda x: DictUtils.get_str_dict_property,
+        int: lambda x: DictUtils.get_int_dict_property,
+        datetime: lambda x: DictUtils.get_datetime_dict_property,
+        datetime.date: lambda x: DictUtils.get_date_dict_property,
+        bool: lambda x: DictUtils.get_bool_dict_property,
+        Decimal: lambda x: DictUtils.get_decimal_dict_property,
+        list: lambda x: DictUtils.get_list_dict_property,
+        float: lambda x: DictUtils.get_float_dict_property
+    }
+
     @staticmethod
-    def get_setting_by_path(parent_setting, path: str, default_value=None):
+    def get_setting_by_path(parent_setting, path: str, default_value=None, data_type=None):
         if not DictUtils.str_is_null_or_empty(path) and parent_setting is not None:
             ps = path.split('.')
             i = 0
@@ -42,7 +54,7 @@ class DictUtils:
         return default_value
 
     @staticmethod
-    def get_required_dict_property(properties: dict, key: str, required_error=None):
+    def get_required_dict_property(properties: dict, key: str, required_error=None) -> object:
         value = DictUtils.get_dict_property(properties, key)
 
         if value is not None:
