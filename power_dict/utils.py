@@ -7,25 +7,38 @@ from power_dict.errors import InvalidParameterError, NoneParameterError
 
 class DictUtils:
     @staticmethod
-    def get_value(properties: dict, key: str, default_value=None, data_type=str) -> object:
+    def get_value(properties: dict, key: str, data_type: str, **kwargs) -> object:
         """
         Get the dictionary value and cast it to type data_type
-        :param default_value:
         :param properties: dict data
         :param key: key
         :param data_type: target data type
         :return: data_type object
         """
         if data_type is None:
-            raise ValueError("Data type is none")
+            data_type = 'str'
 
-        if data_type not in DictUtils.__MAP:
+        map_func = {
+            "object": DictUtils.get_dict_property,
+            "str": DictUtils.get_str_dict_property,
+            "int": DictUtils.get_int_dict_property,
+            "datetime": DictUtils.get_datetime_dict_property,
+            "date": DictUtils.get_date_dict_property,
+            "bool": DictUtils.get_bool_dict_property,
+            "decimal": DictUtils.get_decimal_dict_property,
+            "list": DictUtils.get_list_dict_property,
+            "float": DictUtils.get_float_dict_property
+        }
+
+        if data_type not in map_func:
             raise NotImplementedError(f"Not implemented for data type '{data_type}'")
 
-        return DictUtils.__MAP[data_type](properties, key, default_value, data_type=str)
+        func = map_func[data_type]
+
+        return func(properties, key, **kwargs)
 
     @staticmethod
-    def get_required_value(properties: dict, key: str, required_error=None, data_type=str) -> object:
+    def get_required_value(properties: dict, key: str, data_type: str, **kwargs) -> object:
         """
         Get the required dictionary value and cast it to type data_type
         :param properties: dict data
@@ -35,12 +48,24 @@ class DictUtils:
         :return: data_type object
         """
         if data_type is None:
-            raise ValueError("Data type is none")
+            data_type = 'str'
 
-        if data_type not in DictUtils.__REQUIRED_MAP:
+        map_func = {
+            "object": DictUtils.get_required_dict_property,
+            "str": DictUtils.get_required_str_dict_property,
+            "int": DictUtils.get_required_int_dict_property,
+            "datetime": DictUtils.get_required_datetime_dict_property,
+            "date": DictUtils.get_required_date_dict_property,
+            "bool": DictUtils.get_required_bool_dict_property,
+            "decimal": DictUtils.get_required_decimal_dict_property,
+            "list": DictUtils.get_required_list_dict_property,
+            "float": DictUtils.get_required_float_dict_property
+        }
+
+        if data_type not in map_func:
             raise NotImplementedError(f"Not implemented for data type '{data_type}'")
 
-        return DictUtils.__REQUIRED_MAP[data_type](properties, key, required_error=required_error, data_type=str)
+        return map_func[data_type](properties, key, **kwargs)
 
     @staticmethod
     def get_setting_by_path(parent_setting, path: str, default_value=None, data_type=None) -> object:
@@ -175,9 +200,11 @@ class DictUtils:
             raise InvalidParameterError(f'Parameter "{key}" could not be converted to a int')
 
     @staticmethod
-    def get_datetime_dict_property(properties: dict, key: str, default_value: datetime = None) -> datetime:
+    def get_datetime_dict_property(properties: dict, key: str, default_value: datetime = None,
+                                   format: str = None) -> datetime:
         """
         Get the dictionary value and cast it to type 'datetime'
+        :param format: date time format
         :param properties: dict data
         :param key: key
         :param default_value: default value
@@ -188,16 +215,18 @@ class DictUtils:
         if DictUtils.str_is_null_or_empty(value):
             value = default_value
 
-        status, result = ParseUtils.try_parse_datetime(value)
+        status, result = ParseUtils.try_parse_datetime(value, format=format)
         if status:
             return result
         else:
             raise InvalidParameterError(f'Parameter "{key}" could not be converted to a datetime')
 
     @staticmethod
-    def get_required_datetime_dict_property(properties: dict, key: str, required_error=None) -> datetime:
+    def get_required_datetime_dict_property(properties: dict, key: str, required_error=None,
+                                            format: str = None) -> datetime:
         """
         Get the required dictionary value and cast it to type 'datetime'
+        :param format: date time format
         :param properties: dict data
         :param key: key
         :param required_error: error message if parameter is none
@@ -205,16 +234,17 @@ class DictUtils:
         """
         value = DictUtils.get_required_dict_property(properties, key, required_error)
 
-        status, result = ParseUtils.try_parse_datetime(value)
+        status, result = ParseUtils.try_parse_datetime(value, format=format)
         if status:
             return result
         else:
             raise InvalidParameterError(f'Parameter "{key}" could not be converted to a datetime')
 
     @staticmethod
-    def get_date_dict_property(properties: dict, key: str, default_value=None) -> datetime.date:
+    def get_date_dict_property(properties: dict, key: str, default_value=None, format: str = None) -> datetime.date:
         """
         Get the dictionary value and cast it to type 'date'
+        :param format: date format
         :param properties: dict data
         :param key: key
         :param default_value: default value
@@ -225,16 +255,18 @@ class DictUtils:
         if DictUtils.str_is_null_or_empty(value):
             value = default_value
 
-        status, result = ParseUtils.try_parse_date(value)
+        status, result = ParseUtils.try_parse_date(value, format=format)
         if status:
             return result
         else:
             raise InvalidParameterError(f'Parameter "{key}" could not be converted to a date')
 
     @staticmethod
-    def get_required_date_dict_property(properties: dict, key: str, required_error=None) -> datetime.date:
+    def get_required_date_dict_property(properties: dict, key: str, required_error=None,
+                                        format: str = None) -> datetime.date:
         """
         Get the required dictionary value and cast it to type 'date'
+        :param format: date format
         :param properties: dict data
         :param key: key
         :param required_error: error message if parameter is none
@@ -242,7 +274,7 @@ class DictUtils:
         """
         value = DictUtils.get_required_dict_property(properties, key, required_error)
 
-        status, result = ParseUtils.try_parse_date(value)
+        status, result = ParseUtils.try_parse_date(value, format=format)
         if status:
             return result
         else:
@@ -411,27 +443,3 @@ class DictUtils:
             message = 'No parameter specified'
 
         raise NoneParameterError(message)
-
-    __MAP = {
-        object: lambda x: DictUtils.get_dict_property,
-        str: lambda x: DictUtils.get_str_dict_property,
-        int: lambda x: DictUtils.get_int_dict_property,
-        datetime: lambda x: DictUtils.get_datetime_dict_property,
-        datetime.date: lambda x: DictUtils.get_date_dict_property,
-        bool: lambda x: DictUtils.get_bool_dict_property,
-        Decimal: lambda x: DictUtils.get_decimal_dict_property,
-        list: lambda x: DictUtils.get_list_dict_property,
-        float: lambda x: DictUtils.get_float_dict_property
-    }
-
-    __REQUIRED_MAP = {
-        object: lambda x: DictUtils.get_required_dict_property,
-        str: lambda x: DictUtils.get_required_str_dict_property,
-        int: lambda x: DictUtils.get_required_int_dict_property,
-        datetime: lambda x: DictUtils.get_required_datetime_dict_property,
-        datetime.date: lambda x: DictUtils.get_required_date_dict_property,
-        bool: lambda x: DictUtils.get_required_bool_dict_property,
-        Decimal: lambda x: DictUtils.get_required_decimal_dict_property,
-        list: lambda x: DictUtils.get_required_list_dict_property,
-        float: lambda x: DictUtils.get_required_float_dict_property
-    }
