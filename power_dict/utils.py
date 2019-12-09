@@ -7,16 +7,18 @@ from power_dict.errors import InvalidParameterError, NoneParameterError
 
 class DictUtils:
     @staticmethod
-    def get_value(properties: dict, key: str, data_type: str, **kwargs) -> object:
+    def get_value(properties: dict, key: str, **kwargs) -> object:
         """
         Get the dictionary value and cast it to type data_type
         :param properties: dict data
         :param key: key
-        :param data_type: target data type
         :return: data_type object
         """
-        if data_type is None:
-            data_type = 'str'
+        if 'data_type' not in kwargs or kwargs['data_type'] is None:
+            data_type = "str"
+        else:
+            data_type = kwargs['data_type']
+            del kwargs['data_type']
 
         map_func = {
             "object": DictUtils.get_dict_property,
@@ -38,17 +40,19 @@ class DictUtils:
         return func(properties, key, **kwargs)
 
     @staticmethod
-    def get_required_value(properties: dict, key: str, data_type: str, **kwargs) -> object:
+    def get_required_value(properties: dict, key: str, **kwargs) -> object:
         """
         Get the required dictionary value and cast it to type data_type
         :param properties: dict data
         :param key: key
-        :param required_error: error message if parameter is none
         :param data_type: target data type
         :return: data_type object
         """
-        if data_type is None:
-            data_type = 'str'
+        if 'data_type' not in kwargs or kwargs['data_type'] is None:
+            data_type = "str"
+        else:
+            data_type = kwargs['data_type']
+            del kwargs['data_type']
 
         map_func = {
             "object": DictUtils.get_required_dict_property,
