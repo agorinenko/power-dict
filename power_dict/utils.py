@@ -236,7 +236,7 @@ class DictUtils:
     @staticmethod
     def get_date_dict_property(properties: dict, key: str, default_value=None, format: str = None) -> datetime.date:
         """
-        Get the dictionary value and cast it to type 'date'
+        Get the dictionary value and cast it to 'date'
         :param format: date format
         :param properties: dict data
         :param key: key
@@ -258,7 +258,7 @@ class DictUtils:
     def get_required_date_dict_property(properties: dict, key: str, required_error=None,
                                         format: str = None) -> datetime.date:
         """
-        Get the required dictionary value and cast it to type 'date'
+        Get the required dictionary value and cast it to 'date'
         :param format: date format
         :param properties: dict data
         :param key: key
@@ -276,7 +276,7 @@ class DictUtils:
     @staticmethod
     def get_bool_dict_property(properties: dict, key: str, default_value=None) -> bool:
         """
-        Get the dictionary value and cast it to type 'bool'
+        Get the dictionary value and cast it to 'bool'
         :param properties: dict data
         :param key: key
         :param default_value: default value
@@ -296,7 +296,7 @@ class DictUtils:
     @staticmethod
     def get_required_bool_dict_property(properties: dict, key: str, required_error=None) -> bool:
         """
-        Get the required dictionary value and cast it to type 'bool'
+        Get the required dictionary value and cast it to 'bool'
         :param properties: dict data
         :param key: key
         :param required_error: error message if parameter is none
@@ -312,7 +312,7 @@ class DictUtils:
     @staticmethod
     def get_decimal_dict_property(properties: dict, key: str, default_value=None) -> Decimal:
         """
-        Get the dictionary value and cast it to type 'decimal'
+        Get the dictionary value and cast it to 'decimal'
         :param properties: dict data
         :param key: key
         :param default_value: default value
@@ -332,7 +332,7 @@ class DictUtils:
     @staticmethod
     def get_required_decimal_dict_property(properties: dict, key: str, required_error=None) -> Decimal:
         """
-        Get the required dictionary value and cast it to type 'decimal'
+        Get the required dictionary value and cast it to 'decimal'
         :param properties: dict data
         :param key: key
         :param required_error: error message if parameter is none
@@ -349,7 +349,7 @@ class DictUtils:
     @staticmethod
     def get_list_dict_property(properties: dict, key: str, default_value=None) -> list:
         """
-        Get the dictionary value and cast it to type 'list'
+        Get the dictionary value and cast it to 'list'
         :param properties: dict data
         :param key: key
         :param default_value: default value
@@ -364,7 +364,7 @@ class DictUtils:
     @staticmethod
     def get_required_list_dict_property(properties: dict, key: str, required_error=None) -> list:
         """
-        Get the required dictionary value and cast it to type 'list'
+        Get the required dictionary value and cast it to 'list'
         :param properties: dict data
         :param key: key
         :param required_error: error message if parameter is none
@@ -377,7 +377,7 @@ class DictUtils:
     @staticmethod
     def get_float_dict_property(properties: dict, key: str, default_value=None) -> float:
         """
-        Get the dictionary value and cast it to type 'float'
+        Get the dictionary value and cast it to 'float'
         :param properties: dict data
         :param key: key
         :param default_value: default value
@@ -397,7 +397,7 @@ class DictUtils:
     @staticmethod
     def get_required_float_dict_property(properties: dict, key: str, required_error=None) -> float:
         """
-        Get the required dictionary value and cast it to type 'float'
+        Get the required dictionary value and cast it to 'float'
         :param properties: dict data
         :param key: key
         :param required_error: error message if parameter is none
