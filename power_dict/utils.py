@@ -14,11 +14,7 @@ class DictUtils:
         :param key: key
         :return: data_type object
         """
-        if 'data_type' not in kwargs or kwargs['data_type'] is None:
-            data_type = "str"
-        else:
-            data_type = kwargs['data_type']
-            del kwargs['data_type']
+        data_type, kwargs = DictUtils._InternalUtils.remove_key(kwargs, 'data_type', "str")
 
         map_func = {
             "object": DictUtils.get_dict_property,
@@ -45,14 +41,9 @@ class DictUtils:
         Get the required dictionary value and cast it to type data_type
         :param properties: dict data
         :param key: key
-        :param data_type: target data type
         :return: data_type object
         """
-        if 'data_type' not in kwargs or kwargs['data_type'] is None:
-            data_type = "str"
-        else:
-            data_type = kwargs['data_type']
-            del kwargs['data_type']
+        data_type, kwargs = DictUtils._InternalUtils.remove_key(kwargs, 'data_type', "str")
 
         map_func = {
             "object": DictUtils.get_required_dict_property,
@@ -72,29 +63,27 @@ class DictUtils:
         return map_func[data_type](properties, key, **kwargs)
 
     @staticmethod
-    def get_setting_by_path(parent_setting, path: str, default_value=None, data_type=None) -> object:
+    def get_setting_by_path(properties: dict, path: str, **kwargs) -> object:
         """
+         Get the dictionary value and cast it to type data_type by path
+        :param properties: dict data
+        :param path: key as full path
+        :return: data_type object
+        """
+        if not DictUtils.str_is_null_or_empty(path) and properties is not None:
+            separator, kwargs = DictUtils._InternalUtils.remove_key(kwargs, 'separator', ".")
 
-        :param parent_setting:
-        :param path:
-        :param default_value:
-        :param data_type:
-        :return:
-        """
-        if not DictUtils.str_is_null_or_empty(path) and parent_setting is not None:
-            ps = path.split('.')
+            ps = path.split(separator)
             i = 0
             ps_len = len(ps)
 
             if ps_len > 0:
-                for p in ps:
+                for key in ps:
                     i = i + 1
+                    if i == ps_len:
+                        return DictUtils.get_value(properties, key, **kwargs)
 
-                    if parent_setting is not None and p in parent_setting:
-                        parent_setting = parent_setting[p]
-                        if i == ps_len:
-                            return DictUtils.get_value(parent_setting, p, default_value=default_value,
-                                                       data_type=data_type)
+                    properties = DictUtils.get_dict_property(properties, key)
 
         return None
 
@@ -447,3 +436,14 @@ class DictUtils:
             message = 'No parameter specified'
 
         raise NoneParameterError(message)
+
+    class _InternalUtils:
+        @staticmethod
+        def remove_key(kwargs, key, default_value):
+            if key not in kwargs or kwargs[key] is None:
+                value = default_value
+            else:
+                value = kwargs[key]
+                del kwargs[key]
+
+            return value, kwargs

@@ -4,6 +4,8 @@
 [![License](https://img.shields.io/pypi/l/power-dict)](https://img.shields.io/pypi/l/power-dict)
 1. Get the dictionary value and cast it to data type 
 1. Set default value if result is None
+1. Get the required dictionary value and cast it to data type
+1. Get the required dictionary value and raise error if value is empty
 ## install
 ```
 pip install power-dict
@@ -12,3 +14,10 @@ pip install power-dict
 ``` python
 from power_dict.utils import DictUtils
 ```
+## Run unittest from console
+```
+python -m unittest discover -p "*_tests.py"
+```
+## DictUtils.get_value(properties: dict, key: str, **kwargs) -> object
+Get the dictionary value and cast it to type data_type
+[See tests for examples!!!](https://github.com/agorinenko/power-dict/blob/master/power_dict/tests.py)
