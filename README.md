@@ -36,3 +36,11 @@ Get the required dictionary value and cast it to type 'str'. [See tests for exam
 Get the dictionary value and cast it to type 'int'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_int_dict_property_tests.py)
 ## DictUtils.get_required_int_dict_property(properties: dict, key: str, required_error=None) -> int
 Get the required dictionary value and cast it to type 'int'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_int_dict_property_tests.py)
+## DictUtils.get_datetime_dict_property(properties: dict, key: str, default_value: datetime = None, format: str = None) -> datetime
+ Get the dictionary value and cast it to type 'datetime'. 
+ [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_datetime_dict_property_tests.py)
+ [Format Codes.](https://docs.python.org/3.8/library/datetime.html#strftime-and-strptime-format-codes)
+## DictUtils.get_required_datetime_dict_property(properties: dict, key: str, required_error=None, format: str = None) -> datetime
+Get the required dictionary value and cast it to type 'datetime'. 
+[See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_datetime_dict_property_tests.py)
+[Format Codes.](https://docs.python.org/3.8/library/datetime.html#strftime-and-strptime-format-codes)
