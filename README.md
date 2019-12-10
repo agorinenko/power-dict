@@ -32,3 +32,7 @@ Get the required dictionary value. [See tests for examples.](https://github.com/
 Get the dictionary value and cast it to type 'str'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_str_dict_property_tests.py)
 ## DictUtils.get_required_str_dict_property(properties: dict, key: str, required_error=None) -> str
 Get the required dictionary value and cast it to type 'str'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_str_dict_property_tests.py)
+## DictUtils.get_int_dict_property(properties: dict, key: str, default_value=None) -> int
+Get the dictionary value and cast it to type 'int'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_int_dict_property_tests.py)
+## DictUtils.get_required_int_dict_property(properties: dict, key: str, required_error=None) -> int
+Get the required dictionary value and cast it to type 'int'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_int_dict_property_tests.py)

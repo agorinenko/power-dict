@@ -28,17 +28,17 @@ class GetIntDictPropertyTests(unittest.TestCase):
         self.assertEqual(target, None)
 
     def test_get_required_property(self):
-        target = DictUtils.get_int_dict_property(self.properties, 'property_1')
+        target = DictUtils.get_required_int_dict_property(self.properties, 'property_1')
         self.assertIsInstance(target, int)
         self.assertEqual(target, 1)
 
-        target = DictUtils.get_int_dict_property(self.properties, 'property_2')
+        target = DictUtils.get_required_int_dict_property(self.properties, 'property_2')
         self.assertIsInstance(target, int)
         self.assertEqual(target, 2)
 
         with self.assertRaises(NoneParameterError):
-            DictUtils.get_required_str_dict_property(self.properties, 'property_1_none',
-                                                     required_error="Key property_1_none is None")
+            DictUtils.get_required_int_dict_property(self.properties, 'property_1_none',
+                                            required_error="Key property_1_none is None")
 
         with self.assertRaises(NoneParameterError):
-            DictUtils.get_required_str_dict_property(self.properties, 'key_not_found')
+            DictUtils.get_required_int_dict_property(self.properties, 'key_not_found')
