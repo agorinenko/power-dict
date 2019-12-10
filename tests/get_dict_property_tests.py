@@ -35,4 +35,4 @@ class GetDictPropertyTests(unittest.TestCase):
                                                  required_error="Key property_1_none is None")
 
         with self.assertRaises(NoneParameterError):
-            target = DictUtils.get_required_dict_property(self.properties, 'key_not_found')
+            DictUtils.get_required_dict_property(self.properties, 'key_not_found')
