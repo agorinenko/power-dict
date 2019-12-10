@@ -4,7 +4,14 @@ from power_dict.utils import DictUtils
 
 class SchemaValidator:
     @staticmethod
-    def validate(context: dict, schema: list, sanitize_schema: bool = True):
+    def validate(context: dict, schema: list, sanitize_schema: bool = True) -> dict:
+        """
+        Validation and transformation of 'context' dictionary in accordance with the rules of the scheme
+        :param context:
+        :param schema:
+        :param sanitize_schema:
+        :return:
+        """
         if sanitize_schema:
             schema_keys = SchemaValidator.__get_schema_keys(schema)
             SchemaValidator.__sanitize_schema(context, schema_keys)
