@@ -28,3 +28,7 @@ Get the dictionary value and cast it to type data_type by path. [See tests for e
 Get the dictionary value. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_dict_property_tests.py)
 ## DictUtils.get_required_dict_property(properties: dict, key: str, required_error=None) -> object
 Get the required dictionary value. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_dict_property_tests.py)
+## DictUtils.get_str_dict_property(properties: dict, key: str, default_value='') -> str
+Get the dictionary value and cast it to type 'str'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_str_dict_property_tests.py)
+## DictUtils.get_required_str_dict_property(properties: dict, key: str, required_error=None) -> str
+Get the required dictionary value and cast it to type 'str'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_str_dict_property_tests.py)
