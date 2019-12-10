@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime, timezone, timedelta, date
 
-from power_dict.errors import NoneParameterError
+from power_dict.errors import NoneParameterError, InvalidParameterError
 from power_dict.utils import DictUtils
 
 
@@ -10,6 +10,7 @@ class GetDateDictPropertyTests(unittest.TestCase):
         "property_1": '2018-11-23',
         "property_2": date(2018, 11, 23),
         "property_3": '23.11.2018',
+        "error": "oops..",
         "property_1_none": None
     }
 
@@ -34,6 +35,9 @@ class GetDateDictPropertyTests(unittest.TestCase):
         target = DictUtils.get_date_dict_property(self.properties, 'key_not_found')
         self.assertEqual(target, None)
 
+        with self.assertRaises(InvalidParameterError):
+            DictUtils.get_date_dict_property(self.properties, 'error')
+
     def test_get_required_property(self):
         target = DictUtils.get_required_date_dict_property(self.properties, 'property_1')
         self.assertIsInstance(target, date)
@@ -49,3 +53,6 @@ class GetDateDictPropertyTests(unittest.TestCase):
 
         with self.assertRaises(NoneParameterError):
             DictUtils.get_required_date_dict_property(self.properties, 'key_not_found')
+
+        with self.assertRaises(InvalidParameterError):
+            DictUtils.get_required_date_dict_property(self.properties, 'error')

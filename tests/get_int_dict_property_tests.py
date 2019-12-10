@@ -8,6 +8,7 @@ class GetIntDictPropertyTests(unittest.TestCase):
     properties = {
         "property_1": "1",
         "property_2": 2,
+        "error": "oops..",
         "property_1_none": None
     }
 
@@ -38,7 +39,7 @@ class GetIntDictPropertyTests(unittest.TestCase):
 
         with self.assertRaises(NoneParameterError):
             DictUtils.get_required_int_dict_property(self.properties, 'property_1_none',
-                                            required_error="Key property_1_none is None")
+                                                     required_error="Key property_1_none is None")
 
         with self.assertRaises(NoneParameterError):
             DictUtils.get_required_int_dict_property(self.properties, 'key_not_found')

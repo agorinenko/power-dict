@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from power_dict.errors import NoneParameterError
+from power_dict.errors import NoneParameterError, InvalidParameterError
 from power_dict.utils import DictUtils
 
 
@@ -9,6 +9,7 @@ class GetDecimalDictPropertyTests(unittest.TestCase):
     properties = {
         "property_1": "1.01",
         "property_2": Decimal('2.02'),
+        "error": "oops..",
         "property_1_none": None
     }
 
@@ -28,6 +29,9 @@ class GetDecimalDictPropertyTests(unittest.TestCase):
         target = DictUtils.get_decimal_dict_property(self.properties, 'key_not_found')
         self.assertEqual(target, None)
 
+        with self.assertRaises(InvalidParameterError):
+            DictUtils.get_decimal_dict_property(self.properties, 'error')
+
     def test_get_required_property(self):
         target = DictUtils.get_required_decimal_dict_property(self.properties, 'property_1')
         self.assertIsInstance(target, Decimal)
@@ -43,3 +47,6 @@ class GetDecimalDictPropertyTests(unittest.TestCase):
 
         with self.assertRaises(NoneParameterError):
             DictUtils.get_required_decimal_dict_property(self.properties, 'key_not_found')
+
+        with self.assertRaises(InvalidParameterError):
+            DictUtils.get_required_decimal_dict_property(self.properties, 'error')

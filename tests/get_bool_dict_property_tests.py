@@ -1,6 +1,6 @@
 import unittest
 
-from power_dict.errors import NoneParameterError
+from power_dict.errors import NoneParameterError, InvalidParameterError
 from power_dict.utils import DictUtils
 
 
@@ -16,6 +16,7 @@ class GetBoolDictPropertyTests(unittest.TestCase):
         "property_8": 'f',
         "property_9": 'false',
         "property_10": 'no',
+        "error": "oops..",
         "property_1_none": None
     }
 
@@ -67,6 +68,9 @@ class GetBoolDictPropertyTests(unittest.TestCase):
         target = DictUtils.get_bool_dict_property(self.properties, 'key_not_found')
         self.assertEqual(target, None)
 
+        with self.assertRaises(InvalidParameterError):
+            DictUtils.get_bool_dict_property(self.properties, 'error')
+
     def test_get_required_property(self):
         target = DictUtils.get_required_bool_dict_property(self.properties, 'property_1')
         self.assertIsInstance(target, bool)
@@ -77,8 +81,11 @@ class GetBoolDictPropertyTests(unittest.TestCase):
         self.assertEqual(target, True)
 
         with self.assertRaises(NoneParameterError):
-            DictUtils.get_required_int_dict_property(self.properties, 'property_1_none',
+            DictUtils.get_required_bool_dict_property(self.properties, 'property_1_none',
                                                      required_error="Key property_1_none is None")
 
         with self.assertRaises(NoneParameterError):
-            DictUtils.get_required_int_dict_property(self.properties, 'key_not_found')
+            DictUtils.get_required_bool_dict_property(self.properties, 'key_not_found')
+
+        with self.assertRaises(InvalidParameterError):
+            DictUtils.get_required_bool_dict_property(self.properties, 'error')

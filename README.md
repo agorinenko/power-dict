@@ -56,3 +56,8 @@ Get the required dictionary value and cast it to 'date'.
 Get the dictionary value and cast it to 'bool'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_bool_dict_property_tests.py)
 ## DictUtils.get_required_bool_dict_property(properties: dict, key: str, required_error=None) -> bool
 Get the required dictionary value and cast it to 'bool'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_bool_dict_property_tests.py)
+## DictUtils.get_decimal_dict_property(properties: dict, key: str, default_value=None) -> Decimal
+Get the dictionary value and cast it to 'decimal'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_decimal_dict_property_tests.py)
+## DictUtils.get_required_decimal_dict_property(properties: dict, key: str, required_error=None) -> Decimal
+Get the required dictionary value and cast it to 'decimal'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_decimal_dict_property_tests.py)
+
