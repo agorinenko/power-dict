@@ -60,4 +60,7 @@ Get the required dictionary value and cast it to 'bool'. [See tests for examples
 Get the dictionary value and cast it to 'decimal'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_decimal_dict_property_tests.py)
 ## DictUtils.get_required_decimal_dict_property(properties: dict, key: str, required_error=None) -> Decimal
 Get the required dictionary value and cast it to 'decimal'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_decimal_dict_property_tests.py)
-
+## DictUtils.get_list_dict_property(properties: dict, key: str, default_value=None) -> list
+Get the dictionary value and cast it to 'list'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_list_dict_property_tests.py)
+## DictUtils.get_required_list_dict_property(properties: dict, key: str, required_error=None) -> list
+Get the required dictionary value and cast it to 'list'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_list_dict_property_tests.py)
