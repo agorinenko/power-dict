@@ -53,6 +53,6 @@ Get the required dictionary value and cast it to 'date'.
 [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_date_dict_property_tests.py)
 [Format Codes.](https://docs.python.org/3.8/library/datetime.html#strftime-and-strptime-format-codes)
 ## DictUtils.get_bool_dict_property(properties: dict, key: str, default_value=None) -> bool
-Get the dictionary value and cast it to 'bool'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_int_dict_property_tests.py)
+Get the dictionary value and cast it to 'bool'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_bool_dict_property_tests.py)
 ## DictUtils.get_required_bool_dict_property(properties: dict, key: str, required_error=None) -> bool
-Get the required dictionary value and cast it to 'bool'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_int_dict_property_tests.py)
+Get the required dictionary value and cast it to 'bool'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_bool_dict_property_tests.py)
