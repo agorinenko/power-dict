@@ -64,3 +64,7 @@ Get the required dictionary value and cast it to 'decimal'. [See tests for examp
 Get the dictionary value and cast it to 'list'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_list_dict_property_tests.py)
 ## DictUtils.get_required_list_dict_property(properties: dict, key: str, required_error=None) -> list
 Get the required dictionary value and cast it to 'list'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_list_dict_property_tests.py)
+## DictUtils.get_float_dict_property(properties: dict, key: str, default_value=None) -> float
+Get the dictionary value and cast it to 'float'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_float_dict_property_tests.py)
+## DictUtils.get_required_float_dict_property(properties: dict, key: str, required_error=None) -> float
+Get the required dictionary value and cast it to 'float'. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_float_dict_property_tests.py)
