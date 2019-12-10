@@ -2,6 +2,7 @@
 [![PyPI version](https://badge.fury.io/py/power-dict.svg)](https://pypi.org/project/power-dict/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/power-dict)](https://img.shields.io/pypi/pyversions/power-dict)
 [![License](https://img.shields.io/pypi/l/power-dict)](https://img.shields.io/pypi/l/power-dict)
+1. Validate dict schema
 1. Get the dictionary value and cast it to data type 
 1. Set default value if result is None
 1. Get the required dictionary value and cast it to data type
