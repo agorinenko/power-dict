@@ -65,7 +65,7 @@ class DictUtils:
     @staticmethod
     def get_setting_by_path(properties: dict, path: str, **kwargs) -> object:
         """
-         Get the dictionary value and cast it to type data_type by path
+        Get the dictionary value and cast it to type data_type by path
         :param properties: dict data
         :param path: key as full path
         :return: data_type object

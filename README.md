@@ -19,5 +19,8 @@ from power_dict.utils import DictUtils
 python -m unittest discover -p "*_tests.py"
 ```
 ## DictUtils.get_value(properties: dict, key: str, **kwargs) -> object
-Get the dictionary value and cast it to type data_type
-[See tests for examples!!!](https://github.com/agorinenko/power-dict/blob/master/power_dict/tests.py)
+Get the dictionary value and cast it to type data_type. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_value_tests.py)
+## DictUtils.get_required_value(properties: dict, key: str, **kwargs) -> object
+Get the required dictionary value and cast it to type data_type. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_required_value_tests.py)
+## DictUtils.get_setting_by_path(properties: dict, path: str, **kwargs) -> object
+Get the dictionary value and cast it to type data_type by path. [See tests for examples.](https://github.com/agorinenko/power-dict/blob/master/tests/get_setting_by_path_tests.py)
