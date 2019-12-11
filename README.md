@@ -2,8 +2,27 @@
 [![PyPI version](https://badge.fury.io/py/power-dict.svg)](https://pypi.org/project/power-dict/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/power-dict)](https://img.shields.io/pypi/pyversions/power-dict)
 [![License](https://img.shields.io/pypi/l/power-dict)](https://img.shields.io/pypi/l/power-dict)
-1. Validate and transform dict schema
-1. Get the dictionary value and cast it to data type 
+1. Validate and transform an incoming dictionary based on schema rules
+1. Get the dictionary value and cast string representation to target data type 
+1. Available types:
+
+"object": raw object
+
+"str": textual data
+
+"int": integer numeric type
+
+"float": float numeric type
+
+"decimal": decimal numeric type
+
+"list": list sequence type
+
+"datetime": a datetime object is a single object containing all the information from a date object and a time object
+
+"date": a date object represents a date (year, month and day)
+
+"bool": boolean values are the two constant objects False and True
 1. Set default value if result is None
 1. Get the required dictionary value and cast it to data type
 1. Get the required dictionary value and raise error if value is empty
