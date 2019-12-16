@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     keywords='python, dict, utils',
     long_description_content_type="text/markdown",
-    url="https://github.com/agorinenko/power_dict",
+    url="https://github.com/agorinenko/power-dict",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3.7",
