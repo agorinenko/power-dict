@@ -1,2 +1,4 @@
 try-parse==0.0.8
 pytest==5.3.1
+wheel
+twine
