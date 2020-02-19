@@ -64,6 +64,7 @@ class SchemaValidator:
         required = DictUtils.get_bool_dict_property(item, 'required', default_value=False)
         default_value = DictUtils.get_dict_property(item, 'default_value')
         required_error = DictUtils.get_str_dict_property(item, 'required_error', None)
+        item_format = DictUtils.get_str_dict_property(item, 'format', None)
 
         if item_type == "enum":
             choices = DictUtils.get_required_list_dict_property(item, 'choices', required_error=required_error)
@@ -80,9 +81,11 @@ class SchemaValidator:
             return str_value
         else:
             if required:
-                return DictUtils.get_required_value(context, name, data_type=item_type, required_error=required_error)
+                return DictUtils.get_required_value(context, name, data_type=item_type,
+                                                    required_error=required_error, format=item_format)
             else:
-                return DictUtils.get_value(context, name, data_type=item_type, default_value=default_value)
+                return DictUtils.get_value(context, name, data_type=item_type,
+                                           default_value=default_value, format=item_format)
 
     @staticmethod
     def __check_user_validators(item_schema: dict, value):
