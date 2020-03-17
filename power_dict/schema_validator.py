@@ -135,7 +135,7 @@ class SchemaValidator:
         internal_validators = [items_list, unique_list, empty_list]
 
         if value is None or item_schema is None:
-            return True
+            return None
 
         for validator in internal_validators:
             if callable(validator):

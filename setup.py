@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="power_dict",
-    version="0.0.8",
+    version="0.0.9",
     author="Gorinenko Anton",
     author_email="anton.gorinenko@gmail.com",
     description="Library for easy work with the python dictionary",
