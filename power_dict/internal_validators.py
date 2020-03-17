@@ -24,7 +24,7 @@ def unique_list(item_schema: dict, value):
     if isinstance(value, list):
         unique = DictUtils.get_bool_dict_property(item_schema, 'unique', default_value=False)
 
-        if unique is not None:
+        if unique:
             value = list(set(value))
 
     return value

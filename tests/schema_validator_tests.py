@@ -215,3 +215,20 @@ class SchemaValidatorTests(unittest.TestCase):
         }
         with self.assertRaises(InvalidSchemeError):
             SchemaValidator.validate(context, list_schema)
+
+    def test_list_9(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {
+                'name': 'empty_list', 'type': "list", 'unique': True,
+                'items': {'type': "enum", 'choices': ['male', 'female']},
+            },
+        ]
+        context = {
+            'empty_list': ['male', 'male', 'female', 'female', 'RRRR!'],
+        }
+        with self.assertRaises(InvalidSchemeError):
+            SchemaValidator.validate(context, list_schema)
