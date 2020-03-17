@@ -81,11 +81,18 @@ class SchemaValidator:
             return str_value
         else:
             if required:
-                return DictUtils.get_required_value(context, name, data_type=item_type,
-                                                    required_error=required_error, format=item_format)
+                kwargs = {'data_type': item_type,
+                          'required_error': required_error}
+                if item_format is not None:
+                    kwargs['format'] = item_format
+
+                return DictUtils.get_required_value(context, name, **kwargs)
             else:
-                return DictUtils.get_value(context, name, data_type=item_type,
-                                           default_value=default_value, format=item_format)
+                kwargs = {'data_type': item_type,
+                          'default_value': default_value}
+                if item_format is not None:
+                    kwargs['format'] = item_format
+                return DictUtils.get_value(context, name, **kwargs)
 
     @staticmethod
     def __check_user_validators(item_schema: dict, value):
