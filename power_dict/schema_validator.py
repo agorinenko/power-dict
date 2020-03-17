@@ -1,4 +1,5 @@
 from power_dict.errors import InvalidSchemeError, NotAllowedParameterError
+from power_dict.internal_validators import empty_list, unique_list, items_list
 from power_dict.utils import DictUtils
 
 
@@ -52,6 +53,8 @@ class SchemaValidator:
 
             value = SchemaValidator.__get_item_value(item, context)
 
+            value = SchemaValidator.__check_internal_validators(item, value)
+
             if SchemaValidator.__check_user_validators(item, value):
                 new_context[name] = value
 
@@ -80,12 +83,23 @@ class SchemaValidator:
 
             return str_value
         else:
+            kwargs = {}
+            if item_format is not None:
+                kwargs['format'] = item_format
+
+            if item_type is not None:
+                kwargs['data_type'] = item_type
+
             if required:
-                return DictUtils.get_required_value(context, name, data_type=item_type,
-                                                    required_error=required_error, format=item_format)
+                if required_error is not None:
+                    kwargs['required_error'] = required_error
+
+                return DictUtils.get_required_value(context, name, **kwargs)
             else:
-                return DictUtils.get_value(context, name, data_type=item_type,
-                                           default_value=default_value, format=item_format)
+                if required_error is not None:
+                    kwargs['default_value'] = default_value
+
+                return DictUtils.get_value(context, name, **kwargs)
 
     @staticmethod
     def __check_user_validators(item_schema: dict, value):
@@ -115,3 +129,16 @@ class SchemaValidator:
                     raise InvalidSchemeError(error)
 
         return True
+
+    @staticmethod
+    def __check_internal_validators(item_schema: dict, value):
+        internal_validators = [items_list, unique_list, empty_list]
+
+        if value is None or item_schema is None:
+            return True
+
+        for validator in internal_validators:
+            if callable(validator):
+                value = validator(item_schema, value)
+
+        return value

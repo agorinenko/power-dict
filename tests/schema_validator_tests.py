@@ -87,4 +87,131 @@ class SchemaValidatorTests(unittest.TestCase):
         self.assertTrue('is_admin' in target)
         self.assertEqual(target['is_admin'], True)
         self.assertTrue('roles' in target)
-        self.assertEqual(target['roles'], ["user", "super_user"])
+        self.assertEqual(target['roles'].sort(), context["roles"].sort())
+
+    def test_list_1(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {'name': 'empty_list', 'type': "list", 'required': True},
+        ]
+        context = {
+            'empty_list': [],
+        }
+        target = SchemaValidator.validate(context, list_schema)
+        self.assertIsInstance(target, dict)
+        self.assertEqual(target['empty_list'], [])
+
+    def test_list_2(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {'name': 'empty_list', 'type': "list", 'required': True, 'empty': False},
+        ]
+        context = {
+            'empty_list': [],
+        }
+        with self.assertRaises(InvalidSchemeError):
+            SchemaValidator.validate(context, list_schema)
+
+    def test_list_3(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {'name': 'empty_list', 'type': "list", 'required': False, 'empty': False},
+        ]
+        context = {
+            'empty_list': [],
+        }
+
+        with self.assertRaises(InvalidSchemeError):
+            SchemaValidator.validate(context, list_schema)
+
+    def test_list_4(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {'name': 'empty_list', 'type': "list", 'required': True, 'empty': False},
+        ]
+        context = {
+            'empty_list': [1, 2, 3],
+        }
+        target = SchemaValidator.validate(context, list_schema)
+        self.assertIsInstance(target, dict)
+        self.assertEqual(target['empty_list'], context['empty_list'])
+
+    def test_list_5(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {'name': 'empty_list', 'type': "list", 'unique': True},
+        ]
+        context = {
+            'empty_list': [1, 1, 2, 2, 3, 3],
+        }
+        target = SchemaValidator.validate(context, list_schema)
+        self.assertIsInstance(target, dict)
+        self.assertEqual(target['empty_list'], [1, 2, 3])
+
+    def test_list_6(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {
+                'name': 'empty_list', 'type': "list", 'unique': True,
+                'items': {'type': "enum", 'choices': ['male', 'female']},
+            },
+        ]
+        context = {
+            'empty_list': ['male', 'male', 'female', 'female'],
+        }
+        target = SchemaValidator.validate(context, list_schema)
+        self.assertIsInstance(target, dict)
+        self.assertEqual(target['empty_list'].sort() , ['male', 'female'].sort())
+
+    def test_list_7(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {
+                'name': 'empty_list', 'type': "list", 'unique': True,
+                'items': {'type': "int"},
+            },
+        ]
+        context = {
+            'empty_list': ['1', '2', '2', '3'],
+        }
+        target = SchemaValidator.validate(context, list_schema)
+        self.assertIsInstance(target, dict)
+        self.assertEqual(target['empty_list'], [1, 2, 3])
+
+    def test_list_8(self):
+        """
+        List validate and transform
+        :return:
+        """
+        list_schema = [
+            {
+                'name': 'empty_list', 'type': "list", 'unique': True,
+                'items': {'type': "enum", 'choices': ['male', 'female']},
+            },
+        ]
+        context = {
+            'empty_list': ['male', 'male', 'female', 'female', 'RRRR!'],
+        }
+        with self.assertRaises(InvalidSchemeError):
+            SchemaValidator.validate(context, list_schema)
