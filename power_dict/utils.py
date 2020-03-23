@@ -29,9 +29,9 @@ class DictUtils:
         }
 
         if data_type not in map_func:
-            raise NotImplementedError(f"Not implemented for data type '{data_type}'")
-
-        func = map_func[data_type]
+            func = DictUtils.get_dict_property
+        else:
+            func = map_func[data_type]
 
         return func(properties, key, **kwargs)
 
@@ -58,9 +58,11 @@ class DictUtils:
         }
 
         if data_type not in map_func:
-            raise NotImplementedError(f"Not implemented for data type '{data_type}'")
+            func = DictUtils.get_required_dict_property
+        else:
+            func = map_func[data_type]
 
-        return map_func[data_type](properties, key, **kwargs)
+        return func(properties, key, **kwargs)
 
     @staticmethod
     def get_setting_by_path(properties: dict, path: str, **kwargs) -> object:
