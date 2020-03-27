@@ -37,9 +37,9 @@ class GetStrDictPropertyTests(unittest.TestCase):
             DictUtils.get_required_str_dict_property(self.properties, 'property_1_none',
                                                      required_error="Key property_1_none is None")
 
-            with self.assertRaises(NoneParameterError):
-                DictUtils.get_required_str_dict_property(self.properties, 'property_1_empty',
-                                                         required_error="Key property_1_none is None")
+        with self.assertRaises(NoneParameterError):
+            DictUtils.get_required_str_dict_property(self.properties, 'property_1_empty',
+                                                     required_error="Key property_1_none is None")
 
         with self.assertRaises(NoneParameterError):
             DictUtils.get_required_str_dict_property(self.properties, 'key_not_found')

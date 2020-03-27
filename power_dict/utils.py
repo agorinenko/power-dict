@@ -154,8 +154,12 @@ class DictUtils:
         :return: str object
         """
         value = DictUtils.get_required_dict_property(properties, key, required_error)
+        value = str(value)
 
-        return str(value)
+        if DictUtils.str_is_null_or_empty(value):
+            DictUtils.raise_none_parameter_error(key, required_error)
+
+        return value
 
     @staticmethod
     def get_int_dict_property(properties: dict, key: str, default_value=None) -> int:
