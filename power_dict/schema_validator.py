@@ -96,7 +96,7 @@ class SchemaValidator:
 
                 return DictUtils.get_required_value(context, name, **kwargs)
             else:
-                if required_error is not None:
+                if default_value is not None:
                     kwargs['default_value'] = default_value
 
                 return DictUtils.get_value(context, name, **kwargs)

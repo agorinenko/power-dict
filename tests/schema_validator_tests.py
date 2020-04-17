@@ -19,7 +19,7 @@ class SchemaValidatorTests(unittest.TestCase):
         {'name': 'username', 'type': "str", 'required': True, 'description': 'Login',
          'required_error': 'User login is not specified'},
         {'name': 'age', 'type': "int", 'required': False, 'description': 'Age',
-         'validators': [lambda v: 0 < v <= 50]},
+         'validators': [lambda v: 0 < v <= 50], 'default_value': 18},
         {'name': 'body_temperature', 'type': "float", 'required': False, "default_value": 36.6},
         {'name': 'balance', 'type': "decimal", 'required': True, 'description': 'Credit card balance'},
         {'name': 'password', 'type': "object", 'required': True, 'description': 'Password',
@@ -88,6 +88,29 @@ class SchemaValidatorTests(unittest.TestCase):
         self.assertEqual(target['is_admin'], True)
         self.assertTrue('roles' in target)
         self.assertEqual(target['roles'].sort(), context["roles"].sort())
+
+    def test_simple_validate_transform_1(self):
+        """
+        int default value
+        :return:
+        """
+        context = {
+            'username': "login_1",
+            'body_temperature': "36.6",
+            'balance': "1999.99",
+            'password': "********",
+            'gender': "male",
+            'date_of_birth': "2018-11-23",
+            'last_login': "2018-11-23 01:45:59",
+            'is_admin': "yes",
+            'roles': ["user", "super_user"],
+        }
+        target = SchemaValidator.validate(context, self.schema)
+
+        self.assertIsInstance(target, dict)
+
+        self.assertTrue('age' in target)
+        self.assertEqual(target['age'], 18)
 
     def test_list_1(self):
         """
