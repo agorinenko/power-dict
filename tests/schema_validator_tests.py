@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime, date
 from decimal import Decimal
 
-from power_dict.errors import InvalidSchemeError
+from power_dict.errors import InvalidSchemeError, NoneParameterError
 from power_dict.schema_validator import SchemaValidator
 
 
@@ -127,6 +127,15 @@ class SchemaValidatorTests(unittest.TestCase):
         self.assertIsInstance(target, dict)
         self.assertEqual(target['empty_list'], [])
 
+        list_schema = [
+            {'name': 'empty_list', 'type': "list", 'required': True},
+        ]
+        context = {
+        }
+
+        with self.assertRaises(NoneParameterError):
+            SchemaValidator.validate(context, list_schema)
+
     def test_list_2(self):
         """
         List validate and transform
@@ -202,7 +211,7 @@ class SchemaValidatorTests(unittest.TestCase):
         }
         target = SchemaValidator.validate(context, list_schema)
         self.assertIsInstance(target, dict)
-        self.assertEqual(target['empty_list'].sort() , ['male', 'female'].sort())
+        self.assertEqual(target['empty_list'].sort(), ['male', 'female'].sort())
 
     def test_list_7(self):
         """
@@ -255,3 +264,38 @@ class SchemaValidatorTests(unittest.TestCase):
         }
         with self.assertRaises(InvalidSchemeError):
             SchemaValidator.validate(context, list_schema)
+
+    def test_list_10(self):
+        """
+        List validate and transform
+        Test default_value
+        :return:
+        """
+        list_schema = [
+            {
+                'name': 'options',
+                'type': 'list',
+                'items': {'type': "enum", 'choices': [
+                    'option1',
+                    'option2',
+                    'option3',
+                    'option4'
+                ]},
+                'required': False,
+                'unique': True,
+                'default_value': ['option1'],
+                'description': 'Группы объектов',
+            }
+        ]
+        context = {
+            'options': [],
+        }
+        target = SchemaValidator.validate(context, list_schema)
+        self.assertIsInstance(target, dict)
+        self.assertEqual(target['options'], [])
+
+        context = {
+        }
+        target = SchemaValidator.validate(context, list_schema)
+        self.assertIsInstance(target, dict)
+        self.assertEqual(target['options'], ['option1'])
